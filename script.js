@@ -20,13 +20,23 @@ if (navigator.geolocation) {
       map = L.map("map").setView([coords.latitude, coords.longitude], 13);
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          '&copy; <a href="https://www.openstreetmap.fr/hot/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
-
-      L.marker([coords.latitude, coords.longitude])
-        .addTo(map)
-        .bindPopup("A pretty CSS popup.<br> Easily customizable.")
-        .openPopup();
+      map.on("click", (mapEvent) => {
+        L.marker([mapEvent.latlng.lat, mapEvent.latlng.lng])
+          .addTo(map)
+          .bindPopup(
+            L.popup({
+              maxWidth: 250,
+              minWidth: 100,
+              autoClose: false,
+              closeOnClick: false,
+              className: "running-popup",
+            })
+          )
+          .setPopupContent("Workout")
+          .openPopup();
+      });
     },
     () => alert("I'm afraid we couldn't get your location")
   );
