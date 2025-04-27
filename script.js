@@ -23,6 +23,20 @@ if (navigator.geolocation) {
         attribution:
           '&copy; <a href="https://www.openstreetmap.fr/hot/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
+      L.marker([coords.latitude, coords.longitude])
+        .addTo(map)
+        .bindPopup(
+          L.popup({
+            maxWidth: 250,
+            minWidth: 100,
+            maxHeight: 20,
+            autoClose: false,
+            closeOnClick: false,
+            className: "initial-popup",
+          })
+        )
+        .setPopupContent("You're here!")
+        .openPopup();
       map.on("click", (mapE) => {
         form.classList.remove("hidden");
         mapEvent = mapE;
