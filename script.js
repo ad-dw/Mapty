@@ -56,6 +56,7 @@ class App {
   _showForm(mapE) {
     form.classList.remove("hidden");
     this.#mapEvent = mapE;
+    inputType.focus();
   }
 
   _toggleElevationField() {}
