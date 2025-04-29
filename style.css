@@ -16,6 +16,11 @@
   box-sizing: inherit;
 }
 
+*:focus {
+  outline: 2px solid rgb(69, 100, 255);
+  outline-offset: 1px;
+}
+
 html {
   font-size: 62.5%;
   box-sizing: border-box;
@@ -164,7 +169,6 @@ a:visited {
 }
 
 .form__input:focus {
-  outline: none;
   background-color: #fff;
 }
 
