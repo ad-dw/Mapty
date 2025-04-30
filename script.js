@@ -63,6 +63,12 @@ class App {
 
   _newWorkout(event) {
     event.preventDefault();
+    inputType.value =
+      inputDistance.value =
+      inputDuration.value =
+      inputCadence.value =
+      inputElevation.value =
+        "";
     L.marker([this.#mapEvent.latlng.lat, this.#mapEvent.latlng.lng])
       .addTo(this.#map)
       .bindPopup(
