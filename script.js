@@ -63,12 +63,37 @@ class App {
 
   _newWorkout(event) {
     event.preventDefault();
-    inputType.value =
-      inputDistance.value =
+    const isANumber = (...args) => args.every((arg) => !isNaN(arg));
+    const isAPositiveNumber = (...args) => args.every((arg) => +arg > 0);
+    //getting data from the form
+    let workoutType = inputType.value;
+    let distance = inputDistance.value;
+    let duration = inputDuration.value;
+
+    if (workoutType === "running") {
+      let cadence = inputCadence.value;
+      if (
+        !isANumber(distance, duration, cadence) ||
+        !isAPositiveNumber(distance, duration, cadence)
+      )
+        return alert("The data you entered is not valid !!!");
+    }
+
+    if (workoutType === "cycling") {
+      let elevation = inputElevation.value;
+      if (
+        !isANumber(distance, duration, elevation) ||
+        !isAPositiveNumber(distance, duration)
+      )
+        return alert("The data you entered is not valid !!!");
+    }
+    //clearing out form values
+    inputDistance.value =
       inputDuration.value =
       inputCadence.value =
       inputElevation.value =
         "";
+    inputType.value = "running";
     L.marker([this.#mapEvent.latlng.lat, this.#mapEvent.latlng.lng])
       .addTo(this.#map)
       .bindPopup(
