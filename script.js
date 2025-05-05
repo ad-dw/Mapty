@@ -98,6 +98,8 @@ class App {
       inputElevation.value =
         "";
     inputType.value = "running";
+    inputCadence.closest(".form__row").classList.remove("form__row--hidden");
+    inputElevation.closest(".form__row").classList.add("form__row--hidden");
     L.marker([this.#mapEvent.latlng.lat, this.#mapEvent.latlng.lng])
       .addTo(this.#map)
       .bindPopup(
