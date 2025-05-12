@@ -11,11 +11,13 @@ const inputElevation = document.querySelector(".form__input--elevation");
 class App {
   #map;
   #mapEvent;
+  #mapZoomLevel = 13;
   #workouts = [];
   constructor() {
     this._getposition();
     form.addEventListener("submit", this._newWorkout.bind(this));
     inputType.addEventListener("change", this._toggleElevationField);
+    containerWorkouts.addEventListener("click", this.scrollMap.bind(this));
   }
 
   _getposition() {
@@ -29,7 +31,7 @@ class App {
   _loadMap(position) {
     this.#map = L.map("map").setView(
       [position.coords.latitude, position.coords.longitude],
-      13
+      this.#mapZoomLevel
     );
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution:
@@ -175,6 +177,20 @@ class App {
         </li>`;
     }
     form.insertAdjacentHTML("afterend", html);
+  }
+
+  scrollMap(event) {
+    const workoutEl = event.target.closest(".workout");
+    if (!workoutEl) return;
+    const { coords } = this.#workouts.find(
+      (workout) => workout.id === workoutEl.dataset.id
+    );
+    this.#map.setView(coords, this.#mapZoomLevel, {
+      animate: true,
+      pan: {
+        duration: 1,
+      },
+    });
   }
 }
 
